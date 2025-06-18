@@ -102,7 +102,7 @@ export default function Chatbot() {
             {Object.keys(faqData.queries).map((key) => (
               <button
                 key={key}
-                className="bg-blue-500 text-white rounded px-3 py-2 hover:bg-blue-600 transition"
+                className="chatbot-query-button px-3 py-2 rounded"
                 onClick={() => handleQueryClick(key)}
               >
                 {key}
@@ -125,7 +125,7 @@ export default function Chatbot() {
               {Object.keys(q.sub).map((subKey) => (
                 <button
                   key={subKey}
-                  className="bg-green-500 text-white rounded px-3 py-2 hover:bg-green-600 transition"
+                  className="chatbot-subquery-button px-3 py-2 rounded"
                   onClick={() => handleSubQueryClick(view.key, subKey)}
                 >
                   {subKey}
@@ -149,28 +149,30 @@ export default function Chatbot() {
 
   return (
     <>
+      {/* Bot Floating Button */}
       <button
-        className="fixed bottom-6 right-6 w-80 h-[500px] bg-blue-600 hover:bg-blue-700 text-white px-5 py-4 rounded-full shadow-lg z-50 transition-transform duration-300 ease-in-out"
+        className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white px-5 py-4 rounded-full shadow-lg z-50 transition-transform duration-300 ease-in-out"
         onClick={toggleBot}
       >
         💬
       </button>
 
+      {/* Chatbot Container */}
       {isOpen && (
-        <div className="fixed bottom-20 right-6 w-80 max-w-[90vw] max-h-[500px] bg-white shadow-2xl rounded-xl flex flex-col border z-50 animate-slide-up">
-          <div className="flex justify-between items-center bg-blue-600 text-white p-3 rounded-t-xl">
+        <div className="chatbot-container fixed bottom-20 right-6 w-80 max-w-[90vw] h-[500px] shadow-2xl rounded-xl flex flex-col border z-50 animate-slide-up">
+          {/* Header */}
+          <div className="chatbot-header flex justify-between items-center p-3 rounded-t-xl">
             <button onClick={goBack} className="text-white text-lg">⬅️</button>
             <div className="font-bold">Highland FAQ Bot</div>
             <button onClick={toggleBot} className="text-white text-lg">❌</button>
           </div>
 
+          {/* Main Chat Content */}
           <div className="p-4 overflow-y-auto text-sm flex-1">{renderView()}</div>
 
+          {/* Footer Home Button */}
           <div className="p-2 border-t text-center bg-gray-50">
-            <button
-              className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300"
-              onClick={goHome}
-            >
+            <button className="chatbot-button px-4 py-2 rounded" onClick={goHome}>
               🏠 Home
             </button>
           </div>

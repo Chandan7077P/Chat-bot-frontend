@@ -1,5 +1,4 @@
-@tailwind base;
-@tailwind components;
+@import "tailwindcss/preflight";
 @tailwind utilities;
 
 @layer utilities {
@@ -16,5 +15,25 @@
       transform: translateY(0);
       opacity: 1;
     }
+  }
+
+  .chatbot-container {
+    @apply bg-white;
+  }
+
+  .chatbot-header {
+    @apply bg-blue-600 text-white;
+  }
+
+  .chatbot-button {
+    @apply bg-gray-200 hover:bg-gray-300;
+  }
+
+  .chatbot-query-button {
+    @apply bg-blue-500 text-white hover:bg-blue-600 transition;
+  }
+
+  .chatbot-subquery-button {
+    @apply bg-green-500 text-white hover:bg-green-600 transition;
   }
 }

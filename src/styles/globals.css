@@ -1,33 +1,19 @@
 @import 'tailwindcss/preflight';
 @import 'tailwindcss/utilities';
 
-/* Slide-up animation */
-@keyframes slide-up {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
 @layer utilities {
   .animate-slide-up {
     animation: slide-up 0.3s ease-out;
   }
 
-  .animate-bounce {
-    animation: bounce 0.6s infinite;
+  @keyframes slide-up {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 }

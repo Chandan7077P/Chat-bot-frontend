@@ -150,7 +150,7 @@ export default function Chatbot() {
   return (
     <>
       <button
-        className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white px-5 py-4 rounded-full shadow-lg z-50 transition-transform duration-300 ease-in-out"
+        className="fixed bottom-6 right-6 w-80 h-[500px] bg-blue-600 hover:bg-blue-700 text-white px-5 py-4 rounded-full shadow-lg z-50 transition-transform duration-300 ease-in-out"
         onClick={toggleBot}
       >
         💬

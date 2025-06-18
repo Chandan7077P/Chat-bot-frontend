@@ -1,0 +1,112 @@
+.chatButtonIcon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+  z-index: 9999;
+}
+
+.chatButtonIcon:hover {
+  background-color: #0056b3;
+}
+
+.chatWindow {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 340px;
+  height: 500px; /* Fixed height */
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.4s ease-out;
+  z-index: 9998;
+}
+
+.chatHeader {
+  background-color: #007bff;
+  color: white;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.chatBody {
+  padding: 12px;
+  height: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align from top */
+  gap: 10px;
+}
+
+.chatFooter {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+}
+
+.chatFooter button {
+  padding: 6px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.chatFooter button:hover {
+  background-color: #ccc;
+}
+
+.chatButton {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 10px 14px;
+  text-align: left;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  font-size: 15px;
+}
+
+.chatButton:hover {
+  background-color: #e6e6e6;
+}
+
+.botMsg {
+  background-color: #f8f9fa;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Slide-in animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}

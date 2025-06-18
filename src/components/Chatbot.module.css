@@ -1,0 +1,109 @@
+.chatToggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 22px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  z-index: 999;
+}
+
+.chatToggle:hover {
+  transform: scale(1.1);
+  background-color: #0056b3;
+}
+
+.chatWindow {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 360px;
+  height: 500px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+  z-index: 998;
+}
+
+.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.chatHeader {
+  background-color: #007bff;
+  color: white;
+  padding: 14px 16px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
+
+.chatBody {
+  padding: 16px;
+  overflow-y: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.chatFooter {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px;
+  border-top: 1px solid #ddd;
+  background: #f1f1f1;
+}
+
+.chatFooter button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #eee;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.chatFooter button:hover {
+  background-color: #ddd;
+}
+
+.chatButton {
+  margin: 6px 0;
+  padding: 12px;
+  text-align: left;
+  border: none;
+  background: #f5f5f5;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.chatButton:hover {
+  background: #e4f1ff;
+  font-weight: bold;
+  transform: translateX(5px);
+}
+
+.message {
+  margin: 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+}

@@ -1,9 +1,21 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import '../styles/globals.css'; // Global styles if needed
+import '../styles/globals.css';
 
 const BACKEND_URL = 'https://chat-bot-backend-7t89.onrender.com';
+
+type FAQData = {
+  welcome: string;
+  queries: {
+    [key: string]: {
+      message: string;
+      sub?: {
+        [subKey: string]: string;
+      };
+    };
+  };
+};
 
 type View =
   | { type: 'welcome' }
@@ -12,23 +24,38 @@ type View =
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [faqData, setFaqData] = useState<FAQData | null>(null);
   const [view, setView] = useState<View>({ type: 'welcome' });
   const [history, setHistory] = useState<View[]>([]);
-  const [faqData, setFaqData] = useState<any>({ welcome: '', queries: {} });
 
   useEffect(() => {
-    fetch(`${BACKEND_URL}/api/welcome`)
-      .then((res) => res.json())
-      .then((data) => {
-        const structured = {
-          welcome: data.message,
-          queries: data.queries.reduce((acc: any, key: string) => {
-            acc[key] = { message: '', sub: {} };
-            return acc;
-          }, {}),
-        };
-        setFaqData(structured);
-      });
+    const fetchWelcome = async () => {
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/welcome`);
+        const welcomeJson: { message: string; queries: string[] } = await res.json();
+
+        const queriesData: FAQData['queries'] = {};
+
+        for (const key of welcomeJson.queries) {
+          const resQuery = await fetch(`${BACKEND_URL}/api/query`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ key }),
+          });
+          const queryJson: { message: string; sub?: { [subKey: string]: string } } = await resQuery.json();
+          queriesData[key] = queryJson;
+        }
+
+        setFaqData({
+          welcome: welcomeJson.message,
+          queries: queriesData,
+        });
+      } catch (err) {
+        console.error('Failed to load FAQ data:', err);
+      }
+    };
+
+    fetchWelcome();
   }, []);
 
   const toggleBot = () => {
@@ -54,49 +81,19 @@ export default function Chatbot() {
     setHistory([]);
   };
 
-  const handleQueryClick = async (key: string) => {
+  const handleQueryClick = (key: string) => {
     setHistory((prev) => [...prev, view]);
-    const res = await fetch(`${BACKEND_URL}/api/query`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ key }),
-    });
-    const data = await res.json();
-    setFaqData((prev: any) => ({
-      ...prev,
-      queries: {
-        ...prev.queries,
-        [key]: { message: data.message, sub: data.sub.reduce((acc: any, subKey: string) => { acc[subKey] = ''; return acc; }, {}) },
-      },
-    }));
     setView({ type: 'query', key });
   };
 
-  const handleSubQueryClick = async (key: string, sub: string) => {
+  const handleSubQueryClick = (key: string, sub: string) => {
     setHistory((prev) => [...prev, view]);
-    const res = await fetch(`${BACKEND_URL}/api/subquery`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ main: key, sub }),
-    });
-    const data = await res.json();
-    setFaqData((prev: any) => ({
-      ...prev,
-      queries: {
-        ...prev.queries,
-        [key]: {
-          ...prev.queries[key],
-          sub: {
-            ...prev.queries[key].sub,
-            [sub]: data.message,
-          },
-        },
-      },
-    }));
     setView({ type: 'sub', key, sub });
   };
 
   const renderView = () => {
+    if (!faqData) return <div>Loading...</div>;
+
     if (view.type === 'welcome') {
       return (
         <>
@@ -144,7 +141,7 @@ export default function Chatbot() {
         <div>
           <strong>{view.sub}</strong>
           <br />
-          {msg || 'Loading...'}
+          {msg}
         </div>
       );
     }
